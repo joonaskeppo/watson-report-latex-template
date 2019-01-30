@@ -8,15 +8,10 @@
 \RequirePackage[utf8]{inputenc}
 \RequirePackage{etoolbox}
 \RequirePackage{lmodern}
+\RequirePackage{setspace}
 \RequirePackage{caption}
-\RequirePackage{subcaption}
 
+% Differentiate caption text from body text
 \captionsetup{font=footnotesize}
-\renewcommand{\baselinestretch}{1.2}
-\patchcmd{\maketitle}{\let\footnoterule\relax}{}{}{}
-\newcommand\blfootnote[1]{%
-  \begingroup
-  \renewcommand\thefootnote{}\footnote{#1}%
-  \addtocounter{footnote}{-1}%
-  \endgroup
-}
+% Change line spacing
+\setstretch{1.2}
