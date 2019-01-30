@@ -1,28 +1,20 @@
 \documentclass{watson}
 \usepackage[finnish]{babel}
 \usepackage{graphicx}
-\usepackage[hyphens]{url}
-\usepackage{csquotes}
 \usepackage{hyperref}
-\usepackage{biblatex}
 \addbibresource{content/references.bib}
 
-% Title, author, date
 \title{Raportin otsikko tähän}
 \author{Kirjoittaja 1\\
         Kirjoittaja 2\\
         Kirjoittaja 3}
 \date{\today}
 
-% ----------
 \begin{document}
 
 \maketitle
 \tableofcontents
 \newpage
-
-% Add headings (after ToC)
-\pagestyle{headings}
 
 % ----------
 
@@ -33,6 +25,8 @@
 \begin{appendix}
   \input{content/appendix.tex}
 \end{appendix}
+
+% ----------
 
 \newpage
 \printbibliography
