@@ -3,6 +3,7 @@
 % LaTeX class file for typesetting Watson reports
 % ~~~~~~~~~~~~~~~~~~~~~~~~~
 
+
 % Base definitions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}
@@ -21,15 +22,6 @@
 \RequirePackage{caption}
 \RequirePackage{fancyhdr}
 
-
-% Bibliography management
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Use the Chicago citation style
-\RequirePackage[backend=biber,authordate]{biblatex-chicago}
-% The `url` package is already utilized by `biblatex-chicago`
-\PassOptionsToPackage{hyphens}{url}
-
-
 % Headers and footers
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Style from `fancyhdr` package
@@ -42,6 +34,39 @@
 \rhead{\thepage}
 % Footers
 \cfoot{Business Finland -hanke: WHC}
+
+
+% Title page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define horizontal rule
+\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
+% Redefine `\maketitle`
+\renewcommand{\maketitle}{
+\begin{titlepage}
+  \centering
+  \newgeometry{margin=1cm, voffset=8cm}
+  % Vertical centering
+  % \topskip0pt
+  % \vspace*{\fill}
+  % Report title
+  \Huge\@title
+  \vspace*{-15px}
+  \HRule{0.5pt} \\
+  \vspace*{15px}
+  % Report authors
+  \Large\@author
+  % Fill remainder of page space
+  % \vspace*{\fill}
+\end{titlepage}
+}
+
+
+% Bibliography management
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Use the Chicago citation style
+\RequirePackage[backend=biber,authordate]{biblatex-chicago}
+% The `url` package is already utilized by `biblatex-chicago`
+\PassOptionsToPackage{hyphens}{url}
 
 
 % Various tweaks
