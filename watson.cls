@@ -15,12 +15,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage[margin=3cm]{geometry}
 \RequirePackage[toc,page]{appendix}
-\RequirePackage[nottoc]{tocbibind}
+\RequirePackage[nottoc, notlof, notlot]{tocbibind}
 \RequirePackage[utf8]{inputenc}
+\RequirePackage{tocstyle}
 \RequirePackage{lmodern}
 \RequirePackage{setspace}
 \RequirePackage{caption}
 \RequirePackage{fancyhdr}
+
 
 % Headers and footers
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -34,6 +36,15 @@
 \rhead{\thepage}
 % Footers
 \cfoot{Business Finland -hanke: WHC}
+
+
+% Table of contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtocstyle{compact}{
+  \settocfeature[1]{entryhook}{\bfseries}
+  \settocfeature[2]{entryvskip}{0pt plus 2pt}
+}
+\usetocstyle{compact}
 
 
 % Title page
@@ -58,6 +69,25 @@
   % Fill remainder of page space
   % \vspace*{\fill}
 \end{titlepage}
+}
+
+
+% Front matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\watsonfrontmatter}{
+  \maketitle
+  \pagenumbering{roman}
+  \setcounter{page}{1}
+  \null
+  \newpage
+  \listoffigures
+  \newpage
+  \listoftables
+  \newpage
+  \tableofcontents
+  \newpage
+  \pagenumbering{arabic}
+  \setcounter{page}{1}
 }
 
 
