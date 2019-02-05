@@ -1,19 +1,25 @@
-% ~~~~~~~~~~~~~~~~~~~~~~~~~
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % watson.cls
 % LaTeX class file for typesetting Watson reports
-% ~~~~~~~~~~~~~~~~~~~~~~~~~
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 % Base definitions
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{watson}
-\LoadClass[titlepage]{article}
+\LoadClass[titlepage,12pt]{article}
 
 
 % Package imports (excl. BibTeX ones)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-\RequirePackage[margin=3cm]{geometry}
+\RequirePackage[
+textheight=22cm,
+top=2.5cm,
+left=2cm,
+right=2cm,
+footskip=2cm
+]{geometry}
 \RequirePackage[toc,page]{appendix}
 \RequirePackage[nottoc, notlof, notlot]{tocbibind}
 \RequirePackage[utf8]{inputenc}
@@ -22,6 +28,8 @@
 \RequirePackage{setspace}
 \RequirePackage{caption}
 \RequirePackage{fancyhdr}
+\RequirePackage{xcolor}
+\RequirePackage{afterpage}
 
 
 % Headers and footers
@@ -35,51 +43,54 @@
 % Headers
 \rhead{\thepage}
 % Footers
-\cfoot{Business Finland -hanke: WHC}
-
-
-% Table of contents
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newtocstyle{compact}{
-  \settocfeature[1]{entryhook}{\bfseries}
-  \settocfeature[2]{entryvskip}{0pt plus 2pt}
-}
-\usetocstyle{compact}
-
-
-% Title page
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Define horizontal rule
-\newcommand{\HRule}[1]{\rule{\linewidth}{#1}}
-% Redefine `\maketitle`
-\renewcommand{\maketitle}{
-\begin{titlepage}
-  \centering
-  \newgeometry{margin=1cm, voffset=8cm}
-  % Vertical centering
-  % \topskip0pt
-  % \vspace*{\fill}
-  % Report title
-  \Huge\@title
-  \vspace*{-15px}
-  \HRule{0.5pt} \\
-  \vspace*{15px}
-  % Report authors
-  \Large\@author
-  % Fill remainder of page space
-  % \vspace*{\fill}
-\end{titlepage}
-}
+\definecolor{lighter}{rgb}{0.3, 0.3, 0.3}
+\cfoot{\textcolor{lighter}{Business Finland -hanke: WHC}}
 
 
 % Front matter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title page
+\renewcommand{\maketitle}{
+\begin{titlepage}
+  \centering
+  \newgeometry{margin=2cm}
+  \vspace*{3cm}
+  \Huge\@title\\
+  \vspace*{-0.8cm}
+  \rule{\linewidth}{0.5pt}\\
+  \vspace{0.5cm}
+  \LARGE\@author
+  \vfill
+  \normalsize
+  Tämä julkaisu on toteutettu osana WHC-hanketta, johon Jyväskylän yliopisto
+  on saanut\\
+  rahoituksen Business Finlandilta.
+  \restoregeometry
+\end{titlepage}
+}
+% Table of contents
+\newtocstyle{watson}{
+  \settocfeature[1]{entryhook}{\bfseries}
+  \settocfeature[2]{entryvskip}{0pt}
+}
+\usetocstyle{watson}
+% Define front matter command to make main tex file less cluttered
 \newcommand{\watsonfrontmatter}{
-  \maketitle
   \pagenumbering{roman}
   \setcounter{page}{1}
-  \null
-  \newpage
+  \maketitle
+  % \newpage
+  \clearpage % end title page
+  \begingroup
+    \pagestyle{fancy}
+    \null
+    \newpage
+  \endgroup
+  % \afterpage{
+  %   \null
+  %   \thispagestyle{fancy}
+  %   \newpage
+  % }
   \listoffigures
   \newpage
   \listoftables
@@ -105,5 +116,7 @@
 \urlstyle{sf}
 % Differentiate caption text from body text
 \captionsetup{font=footnotesize}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
 % Change line spacing
-\setstretch{1.2}
+\setstretch{1.15}
