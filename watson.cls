@@ -1,6 +1,8 @@
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % watson.cls
 % LaTeX class file for typesetting Watson reports
+%
+% Authors: Joonas Keppo and Petri Vähäkainu
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -30,30 +32,24 @@ footskip=2cm
 \RequirePackage{fancyhdr}
 \RequirePackage{xcolor}
 \RequirePackage{afterpage}
+\RequirePackage{enumitem}
 
 
-% Headers and footers
+% Base definitions for headers and footers
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Style from `fancyhdr` package
 \pagestyle{fancy}
-% Reset header and footer
-\fancyhf{}
-% Get rid of header line
-\renewcommand{\headrulewidth}{0pt}
-% Headers
-\rhead{\thepage}
-% Footers
 \definecolor{lighter}{rgb}{0.3, 0.3, 0.3}
-\cfoot{\textcolor{lighter}{Business Finland -hanke: WHC}}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
 
 
 % Front matter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Title page
+% Title page command redefinition
 \renewcommand{\maketitle}{
 \begin{titlepage}
   \centering
-  \newgeometry{margin=2cm}
+  \newgeometry{margin=2cm, includefoot}
   \vspace*{3cm}
   \Huge\@title\\
   \vspace*{-0.8cm}
@@ -68,37 +64,33 @@ footskip=2cm
   \restoregeometry
 \end{titlepage}
 }
-% Table of contents
-\newtocstyle{watson}{
-  \settocfeature[1]{entryhook}{\bfseries}
-  \settocfeature[2]{entryvskip}{0pt}
-}
-\usetocstyle{watson}
-% Define front matter command to make main tex file less cluttered
+
+% Front matter command definition
 \newcommand{\watsonfrontmatter}{
+  % Title page
+  \fancyhf{}
+  \cfoot{\textcolor{lighter}{Business Finland -hanke: WHC}\vspace{.05cm}\linebreak\thepage}
   \pagenumbering{roman}
   \setcounter{page}{1}
-  \maketitle
-  % \newpage
-  \clearpage % end title page
-  \begingroup
-    \pagestyle{fancy}
-    \null
-    \newpage
-  \endgroup
-  % \afterpage{
-  %   \null
-  %   \thispagestyle{fancy}
-  %   \newpage
-  % }
-  \listoffigures
+  \renewcommand{\headrulewidth}{0pt}
+  \maketitle % tekee kansilehden
+  \clearpage\mbox{}\clearpage % lisää tyhjän sivun kansilehden jälkeen
+
+  % List of figures, tables, and contents
+  \listoffigures \thispagestyle{fancy}
   \newpage
-  \listoftables
+  \listoftables \thispagestyle{fancy}
   \newpage
-  \tableofcontents
+  \setstretch{1.5}
+  \renewcommand{\contentsname}{Sisällysluettelo}
+  \tableofcontents \thispagestyle{fancy}
   \newpage
+
+  % Header, footer styles following front matter
   \pagenumbering{arabic}
   \setcounter{page}{1}
+  \fancyhead[R]{\thepage\ifodd\value{page}\else\hfill\fi}
+  \cfoot{\textcolor{lighter}{Business Finland -hanke: WHC}}
 }
 
 
@@ -116,7 +108,8 @@ footskip=2cm
 \urlstyle{sf}
 % Differentiate caption text from body text
 \captionsetup{font=footnotesize}
+% Tweak spacing, indentation options
+\setstretch{1.15}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{1em}
-% Change line spacing
-\setstretch{1.15}
+\setlist{nosep}
