@@ -16,20 +16,21 @@
 % Package imports (excl. BibTeX ones)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage[
-textheight=22cm,
-top=2.5cm,
-left=2cm,
-right=2cm,
-footskip=2cm
+  textheight=22cm,
+  top=2.5cm,
+  left=2cm,
+  right=2cm,
+  footskip=2cm
 ]{geometry}
 \RequirePackage[toc,page]{appendix}
-\RequirePackage[nottoc, notlof, notlot]{tocbibind}
+\RequirePackage[nottoc,notlof,notlot]{tocbibind}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage{tocstyle}
 \RequirePackage{lmodern}
 \RequirePackage{setspace}
 \RequirePackage{caption}
 \RequirePackage{fancyhdr}
+\RequirePackage{csquotes}
 \RequirePackage{xcolor}
 \RequirePackage{afterpage}
 \RequirePackage{enumitem}
@@ -45,48 +46,54 @@ footskip=2cm
 
 % Front matter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Title page command redefinition
+% TITLE PAGE
 \renewcommand{\maketitle}{
-\begin{titlepage}
-  \centering
-  \newgeometry{margin=2cm, includefoot}
-  \vspace*{3cm}
-  \Huge\@title\\
-  \vspace*{-0.8cm}
-  \rule{\linewidth}{0.5pt}\\
-  \vspace{0.5cm}
-  \LARGE\@author
-  \vfill
-  \normalsize
-  Tämä julkaisu on toteutettu osana WHC-hanketta, johon Jyväskylän yliopisto
-  on saanut\\
-  rahoituksen Business Finlandilta.
-  \restoregeometry
-\end{titlepage}
-}
-
-% Front matter command definition
-\newcommand{\watsonfrontmatter}{
-  % Title page
   \fancyhf{}
   \cfoot{\textcolor{lighter}{Business Finland -hanke: WHC}\vspace{.05cm}\linebreak\thepage}
   \pagenumbering{roman}
   \setcounter{page}{1}
-  \renewcommand{\headrulewidth}{0pt}
-  \maketitle % tekee kansilehden
+  % \renewcommand{\headrulewidth}{0pt}
+  \begin{titlepage}
+    \centering
+    \newgeometry{margin=2cm, includefoot}
+    \vspace*{3cm}
+    \Huge\@title\\
+    \vspace*{-0.8cm}
+    \rule{\linewidth}{0.5pt}\\
+    \vspace{0.5cm}
+    \LARGE\@author
+    \vfill
+    \begin{center}
+      \includegraphics[scale=0.6]{img/jyu-logo.png}
+    \end{center}
+    % \vspace{0.15cm}
+    \normalsize
+    Tämä julkaisu on toteutettu osana WHC-hanketta, johon Jyväskylän yliopisto
+    on saanut\\
+    rahoituksen Business Finlandilta.
+    \restoregeometry
+  \end{titlepage}
   \clearpage\mbox{}\clearpage % lisää tyhjän sivun kansilehden jälkeen
-
-  % List of figures, tables, and contents
-  \listoffigures \thispagestyle{fancy}
-  \newpage
-  \listoftables \thispagestyle{fancy}
-  \newpage
+}
+% LIST OF FIGURES
+\newcommand{\makelistoffigures}{
+    \listoffigures \thispagestyle{fancy}
+    \newpage
+}
+% LIST OF TABLES
+\newcommand{\makelistoftables}{
+    \listoftables \thispagestyle{fancy}
+    \newpage
+}
+% TABLE OF CONTENTS
+\newcommand{\maketableofcontents}{
   \setstretch{1.5}
   \renewcommand{\contentsname}{Sisällysluettelo}
   \tableofcontents \thispagestyle{fancy}
   \newpage
-
-  % Header, footer styles following front matter
+}
+% HEADING, FOOTER STYLES IMMEDIATELY AFTER FRONT MATTER
+\newcommand{\setreportstyles}{
   \pagenumbering{arabic}
   \setcounter{page}{1}
   \fancyhead[R]{\thepage\ifodd\value{page}\else\hfill\fi}

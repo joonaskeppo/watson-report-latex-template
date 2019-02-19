@@ -1,7 +1,6 @@
 \documentclass{watson}
 \usepackage[finnish]{babel}
 \usepackage{graphicx}
-% \usepackage{hyperref}
 \addbibresource{content/references.bib}
 
 \title{Raportin otsikko tähän tämä on esimerkki perkeleen pitkästä otsikosta niin nähdään miten käy jos otsikko vie useampia rivejä tilaa}
@@ -11,9 +10,24 @@
 
 \begin{document}
 
-\watsonfrontmatter
 
 % ----------
+% FRONT MATTER
+% ----------
+% Jos raportissa ei ole kuvia, \makelistoffigures rivin voi poistaa.
+% Jos raportissa ei ole taulukoita, \makelistoftables rivin voi poistaa.
+
+\maketitle            % Kansisivu
+\makelistoffigures    % Kuvat
+\makelistoftables     % Taulukot
+\maketableofcontents  % Sisällysluettelo
+
+
+% ----------
+% MAIN CONTENT
+% ----------
+
+\setreportstyles      % Raportin sisällön header, footer tyylit
 
 \input{content/section1.tex}\newpage
 \input{content/section2.tex}\newpage
@@ -23,6 +37,9 @@
   \input{content/appendix.tex}
 \end{appendix}
 
+
+% ----------
+% BIBLIOGRAPHY
 % ----------
 
 \newpage
